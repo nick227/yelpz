@@ -34,7 +34,7 @@ block body
                             <i class="icon-long-arrow-right"></i>
                       tr
                         td  
-                          |<a href="{{activity.url}}" target="_blank"><img src="{{activity.image_url}}" /></a>
+                          |<a href="{{activity.url}}" target="_blank"><img class="thumb" src="{{activity.image_url}}" /></a>
                         td(style="")  
                           div(style="height:80px;", ng-bind="activity.snippet_text")
                           div(style="height:20px;", class="text-right", ng-bind="activity.location.neighborhoods[0]") 
@@ -52,7 +52,7 @@ block body
                             h2(ng-bind="dining.name|characters:45")
                       tr
                         td  
-                          |<a href="{{dining.url}}" target="_blank"><img src="{{dining.image_url}}" /></a>
+                          |<a href="{{dining.url}}" target="_blank"><img class="thumb" src="{{dining.image_url}}" /></a>
                         td(style="")  
                           div(style="height:80px;", ng-bind="dining.snippet_text")
                           div(style="height:20px;", class="text-right", ng-bind="dining.location.neighborhoods[0]") 
