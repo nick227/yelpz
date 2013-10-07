@@ -1,0 +1,76 @@
+extends layout
+
+block body
+  div(id="fb-root")
+  .container(ng-controller='YelpCtrl')  
+        header 
+          .jumbotron
+            .byline 
+            h1 Yelpz 
+            <span class="small">The <span class="yelpfont">yelp</span> shortcut-app</span>
+            div
+              img(src="images/zigzag.png")
+            div(class="locale") <i class="icon-edit"></i>{{locale}}
+            .row(class="text-right") select your mood: 
+              div(class="btn-group", data-toggle="buttons")
+                label(ng-repeat="mood in moods", class="btn  btn-primary", ng:click="updateYelp($index)", data-toggle="button", value="{{mood.name}}")
+                  input(type="radio", name="options", id="btn_{{mood.name}}", data-loading-text="Loading...")
+                  {{mood.name}}
+        .row(style="min-height:60px;")
+          .breadcrumb(data-spy="affix", data-offset-top="250")
+            h4(class="text-right") <i>viewing <span class="special" ng-bind="currentMood"></span> ideas...</i>
+        .row
+          .col-xs-6
+            h2(class="intro") some entertainment:
+            table(class="table dataTable")
+              tbody
+                tr(ng-repeat="activity in activites")
+                  td(class="cell")
+                    table(class="inner")
+                      tr
+                        td(colspan=2,class="leftColRow titleCell")
+                          a(class="bizTitle", href="{{activity.url}}", target="_blank")
+                            h2(ng-bind="activity.name|characters:35") 
+                            <i class="icon-long-arrow-right"></i>
+                      tr
+                        td  
+                          |<a href="{{activity.url}}" target="_blank"><img src="{{activity.image_url}}" /></a>
+                        td(style="")  
+                          div(style="height:80px;", ng-bind="activity.snippet_text")
+                          div(style="height:20px;", class="text-right", ng-bind="activity.location.neighborhoods[0]") 
+                            a(href="tel://{{activity.phone}}", target="_blank", ng-bind="activity.phone | tel")
+          .col-xs-6
+            h2(class="intro") then a bite to eat:
+            table(class="table dataTable")
+              tbody
+                tr(ng-repeat="dining in dinings")
+                  td(class="cell")
+                    table(class="inner")
+                      tr
+                        td(colspan=2, class="titleCell")
+                          a(class="bizTitle", href="{{dining.url}}", target="_blank")
+                            h2(ng-bind="dining.name|characters:45")
+                      tr
+                        td  
+                          |<a href="{{dining.url}}" target="_blank"><img src="{{dining.image_url}}" /></a>
+                        td(style="")  
+                          div(style="height:80px;", ng-bind="dining.snippet_text")
+                          div(style="height:20px;", class="text-right", ng-bind="dining.location.neighborhoods[0]") 
+                            a(href="tel://{{dining.phone}}", target="_blank", ng-bind="dining.phone | tel")
+  .footer
+    div(class="inner") 
+      |A node.js experiment.  
+      <div class="fb-like" data-href="http://yelpz.herokuapp.com/ " data-width="The pixel width of the plugin" data-height="The pixel height of the plugin" data-colorscheme="light" data-layout="button_count" data-action="like" data-show-faces="true" data-send="false"></div>
+  <div class="alert alert-info" ng-show="loading"><div>loading</div><img src="images/loader.png" /></div>
+
+  script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAWur5mi7A54Tz8WTINayyosorCG7Ux1to&sensor=false')
+  script(src='js/lib/jquery/jquery-2.0.3.min.js')
+  script(src='bootstrap/js/bootstrap.min.js')
+  script(src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.6/jquery-editable/js/jquery-editable-poshytip.min.js")
+
+  script(src='js/lib/angular/angular.js')
+  script(src='js/app.js')
+  script(src='js/services.js')
+  script(src='js/controllers.js')
+  script(src='js/filters.js')
+  script(src='js/directives.js')
