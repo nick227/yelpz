@@ -36,7 +36,7 @@ block body
                         td  
                           |<a href="{{activity.url}}" target="_blank"><img class="thumb" src="{{activity.image_url}}" /></a>
                         td(style="")  
-                          div(style="height:80px;", ng-bind="activity.snippet_text")
+                          div(class="snippet", ng-bind="activity.snippet_text")
                           div(style="height:20px;", class="text-right", ng-bind="activity.location.neighborhoods[0]") 
                             a(href="tel://{{activity.phone}}", target="_blank", ng-bind="activity.phone | tel")
           .col-xs-6
@@ -54,7 +54,7 @@ block body
                         td  
                           |<a href="{{dining.url}}" target="_blank"><img class="thumb" src="{{dining.image_url}}" /></a>
                         td(style="")  
-                          div(style="height:80px;", ng-bind="dining.snippet_text")
+                          div(class="snippet", ng-bind="dining.snippet_text")
                           div(style="height:20px;", class="text-right", ng-bind="dining.location.neighborhoods[0]") 
                             a(href="tel://{{dining.phone}}", target="_blank", ng-bind="dining.phone | tel")
   .footer
