@@ -34,10 +34,11 @@ $scope.moodToCats = {
 	var locale = localStorage.getItem("locale");
 
 	if(!locale){
-	getLocale();
+	getLocale($http, $scope);
 	locale = 'Austin';
 	}
 	getYelp(locale, '', $http, $scope);
+	updateLocale($http, $scope);
 
 	$scope.updateYelp = function(index){
 		var mood = $scope.moods[index].name

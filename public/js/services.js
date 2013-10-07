@@ -5,7 +5,6 @@
 
 angular.module('yelpz.services', ['truncate'], function(){
 	
-	updateLocale();
   	setupFacebook();
 }).
   value('version', 'alpha');
@@ -53,7 +52,7 @@ var getYelp = function(city, mood, $http, $scope){
 }  
 
 /********************************************************/
-var getLocale = function(){
+var getLocale = function($http, $scope){
 
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(success, error);
@@ -93,7 +92,7 @@ if (navigator.geolocation) {
 	}
 }
 /********************************************************/
-var updateLocale = function(){
+var updateLocale = function($http, $scope){
 	
 	$(document).ready(function(){
 		$.fn.editable.defaults.mode = 'inline';
