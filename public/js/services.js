@@ -3,7 +3,11 @@
 /********************************************************/
 /* Services */
 
-angular.module('yelpz.services', ['truncate']).
+angular.module('yelpz.services', ['truncate'], function(){
+	
+	updateLocale();
+  	setupFacebook();
+}).
   value('version', 'alpha');
 
 
@@ -13,15 +17,15 @@ var getYelp = function(city, mood, $http, $scope){
 	var randomMoodIndex, mood, randomActivityIndex, randomDinnerIndex, randomActivity=[], randomDining=[];
 
 	if(!mood){
-	var randomMoodIndex = getRandomInt(0, moods.length),
-	mood = moods[randomMoodIndex].name;
+	var randomMoodIndex = getRandomInt(0, $scope.moods.length),
+	mood = $scope.moods[randomMoodIndex].name;
 	}
 	var i=0;
 	for(i=0;i<5;i++){
-		randomActivityIndex = getRandomInt(0, moodToCats.activities[mood].length),
-		randomDinnerIndex = getRandomInt(0, moodToCats.dining[mood].length),
-		randomActivity.push(moodToCats.activities[mood][randomActivityIndex]),
-		randomDining.push(moodToCats.dining[mood][randomDinnerIndex]);
+		randomActivityIndex = getRandomInt(0, $scope.moodToCats.activities[mood].length),
+		randomDinnerIndex = getRandomInt(0, $scope.moodToCats.dining[mood].length),
+		randomActivity.push($scope.moodToCats.activities[mood][randomActivityIndex]),
+		randomDining.push($scope.moodToCats.dining[mood][randomDinnerIndex]);
 	}
 	$scope.currentMood = mood;
 	$scope.locale = city;
@@ -49,7 +53,7 @@ var getYelp = function(city, mood, $http, $scope){
 }  
 
 /********************************************************/
-var getLocale = function($http, $scope){
+var getLocale = function(){
 
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(success, error);
@@ -89,7 +93,7 @@ if (navigator.geolocation) {
 	}
 }
 /********************************************************/
-var updateLocale = function($http, $scope){
+var updateLocale = function(){
 	
 	$(document).ready(function(){
 		$.fn.editable.defaults.mode = 'inline';
@@ -122,27 +126,3 @@ var setupFacebook = function(){
 	}(document, 'script', 'facebook-jssdk'));
 }
 /********************************************************/
-var moods = [
-  {name:'casual', checked:false}, 
-  {name:'fancy', checked:false}, 
-  {name:'intellectual', checked:false}, 
-  {name:'experimental', checked:false}, 
-  {name:'exciting', checked:false}
-];
-/********************************************************/
-var moodToCats = {
-	activities:{
-	casual:['amusementparks','fishing','leisure_centers','campgrounds','sportsbars','divebars','poolhalls','movietheaters','mini_golf','videoandgames'],
-	fancy:['wineries','spas','boatcharters','champagne_bars','galleries','auctionhouses','gardens','golf','beautysvc','resorts'],
-	intellectual:['jazzandblues','opera','careercounseling','pianobars','hobbyshops','museums','culturalcenter','specialtyschools','theater'],
-	experimental:['festivals','massage','tattoo','tours','yelpevents','comedyclubs','buddhist_temples','psychic_astrology','taichi','hookah_bars'],
-	exciting:['diving','hanggliding','hot_air_balloons','kiteboarding','skydiving','matchmakers','casinos','trampoline','rafting','fireworks']
-	},
-	dining:{
-	casual:['diners','icecream','donuts','sandwiches','pizza','pretzels','foodtrucks','bbq','burgers','comfortfood'],
-	fancy:['gourmet','cheese','chocolate','brazilian','fondue','french','persian','tapas','gastropubs','steak'],
-	intellectual:['ethnicmarkets','gelato','coffee','cafes','gluten_free','colombian','italian','vegetarian','bagels','salad'],
-	experimental:['juicebars','bubbletea','streetvendors','caribbean','mediterranean','soulfood','seafood','raw_food','egyptian','vietnamese'],
-	exciting:['farmersmarket','coffee','seafoodmarkets','dimsum','indpak','thai','modern_european','greek','filipino','spanish']
-	}
-}
